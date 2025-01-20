@@ -11,11 +11,13 @@ interface Movie {
 
 interface myFeaturedProps{
     movies:Movie[];
-    errors:{}[];
+    errors:any;
     isLoading:boolean;
 }
 
-const Featured:React.FC<myFeaturedProps> = ({ movies, errors, isLoading }) => {
+
+const Featured:React.FC<myFeaturedProps> = ({movies,isLoading,errors}) => {
+    
   return (
     <main className="px-10 md:px-20 mb-36">
       <div className="flex flex-col gap-2 md:flex-row md:justify-between mb-11 items-start md:items-center">
@@ -32,12 +34,12 @@ const Featured:React.FC<myFeaturedProps> = ({ movies, errors, isLoading }) => {
       ) : (
         <section
           className={`${
-            !errors.length
+            !errors
               ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-10 place-items-center"
               : "grid"
           }`}
         >
-          {errors.length ? (
+          {errors ? (
             <div>
               <p className="text-center font-bold text-xl text-gray-700 w-full">
                 Fetching data was not successful
