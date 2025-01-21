@@ -2,6 +2,20 @@ import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
+// interface Movie {
+//   poster_path: string;
+//   title: string;
+//   release_date: string;
+//   id: number;
+//   vote_average: number;
+// }
+
+// interface myFeaturedProps {
+//   movies: Movie[];
+//   errors: any;
+//   isLoading: boolean;
+// }
+
 const Searchnav = () => {
   const [value, setValue] = useState("");
   const navigate = useNavigate();

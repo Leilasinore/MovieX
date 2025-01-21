@@ -4,6 +4,7 @@ import { BsDot } from "react-icons/bs";
 import { useParams } from "react-router-dom";
 import { useGetSingleMovieQuery } from "../store/apiSlice";
 import ReccomendedMovies from "./ReccomendedMovies";
+import SimilarMovies from "./SimilarMovies";
 
 const Movieinformation = (
 ) => {
@@ -88,7 +89,7 @@ const Movieinformation = (
               More watch options
             </button>
           </div>
-          <ReccomendedMovies />
+          <SimilarMovies />
         </div>
       </div>
     </section>
