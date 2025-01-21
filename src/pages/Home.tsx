@@ -6,7 +6,6 @@ import { useGetPopularMoviesQuery } from "../store/apiSlice";
 const Home = () => {
   
   const { data, error, isLoading } = useGetPopularMoviesQuery();
- console.log(data)
   return (
     <>
       <Headersection />

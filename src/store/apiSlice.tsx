@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const my_KEY = "3d762bfec75d79016622728f8d2b2bad";
 import { SingleMovie } from "../pages/Singlemovie";
+import { Recommendedmovie } from "../components/ReccomendedMovies";
 
 export interface Movie {
   poster_path: string;
@@ -9,6 +10,7 @@ export interface Movie {
   id: number;
   vote_average: number;
 }
+
 
 
 export const apiSlice = createApi({
@@ -26,9 +28,15 @@ export const apiSlice = createApi({
     }),
 
     getSingleMovie: builder.query<SingleMovie, number | void>({
-      query:(movieId)=>  `movie/${movieId}?api_key=${my_KEY}`,  
+      query: (movieId) => `movie/${movieId}?api_key=${my_KEY}`,
+    }),
+
+    getRecommenddedMovies: builder.query<Recommendedmovie[], number | void>({
+      query: (movieId) => `movie/${movieId}/recommendations?api_key=${my_KEY}`,
+      transformResponse: (response: { results: Recommendedmovie[] }) =>
+        response.results.slice(0, 3),
     }),
   }),
 });
 
-export const { useGetPopularMoviesQuery,useGetSingleMovieQuery } = apiSlice;
+export const { useGetPopularMoviesQuery,useGetSingleMovieQuery,useGetRecommenddedMoviesQuery } = apiSlice;

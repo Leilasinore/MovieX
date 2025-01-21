@@ -1,10 +1,9 @@
 import { url_Image } from "../Urlendpoint/Urlendpoint";
 import { FaList, FaPlay, FaStar, FaTicketAlt } from "react-icons/fa";
-import { BsChevronDown, BsDot } from "react-icons/bs";
-import more from "../assets/more.png";
+import { BsDot } from "react-icons/bs";
 import { useParams } from "react-router-dom";
 import { useGetSingleMovieQuery } from "../store/apiSlice";
-
+import ReccomendedMovies from "./ReccomendedMovies";
 
 const Movieinformation = (
 ) => {
@@ -13,7 +12,7 @@ const Movieinformation = (
        const { data} = useGetSingleMovieQuery(id);
   return (
     <section className="mt-6 lg:mt-4 mx-9 flex-1">
-      <div className="relative w-full flex items-center justify-center">
+      <div className="relative w-half flex items-center justify-center">
         <img
           src={`${url_Image}/original/${data?.backdrop_path}`}
           alt={data?.title}
@@ -48,7 +47,8 @@ const Movieinformation = (
         </div>
         <p className="flex items-center text-xs sm:text-sm md:text-lg">
           <FaStar className="text-yellow-300" />
-          <span className="text-[#E8E8E8] mx-1">{data?.vote_average}</span>| 250K
+          <span className="text-[#E8E8E8] mx-1">{data?.vote_average}</span>|
+          250K
         </p>
       </div>
       <div className="flex flex-col gap-4 xl:flex-row text-lg md:text-xl font-normal text-[#333]">
@@ -73,18 +73,11 @@ const Movieinformation = (
               <span className="text-rose-700">John Doe, Jane Doe, Foo Bar</span>
             </h3>
           </div>
-
-          <div className="flex items-center flex-col sm:flex-row w-full border gap-3 rounded-lg font-medium text-xs sm:text-sm md:text-base">
-            <button className="bg-rose-700 px-6 py-2 rounded-lg text-white w-full sm:w-fit">
-              Top rated movie #65
-            </button>
-            <div className="flex items-center justify-between cursor-pointer flex-1 px-3 text-[#333]">
-              <p>Awards 9 nominations</p>
-              <BsChevronDown />
-            </div>
-          </div>
+          <h2>Similar movies</h2>
+          <ReccomendedMovies/>
         </div>
-        <div className="flex-1 flex flex-col justify-between lg:justify-normal gap-3 md:text-lg mb-2 md:mb-0">
+
+        <div className="flex-1 flex flex-col justify-between lg:justify-normal gap-3 md:text-lg mb-2 md:mb-0 ">
           <div className="flex flex-col gap-3">
             <button className="bg-rose-700 px-6 py-2 rounded-lg text-white flex items-center gap-2 md:gap-3 font-medium text-sm sm:text-base">
               <FaTicketAlt className=" -rotate-45" />
@@ -95,18 +88,7 @@ const Movieinformation = (
               More watch options
             </button>
           </div>
-          <div className="relative">
-            <img
-              src={more}
-              alt="watch more"
-              className="md:h-[12.5rem] lg:h-[11rem] w-full h-[11rem]"
-            />
-
-            <h4 className="absolute bg-black/50 backdrop-blur-sm bottom-0 text-sm md:text-xs text-gray-200 flex items-center justify-center w-full gap-3 p-3 md:p-2 rounded-b-xl">
-              <FaList />
-              The Best Movies and Shows in September
-            </h4>
-          </div>
+          <ReccomendedMovies />
         </div>
       </div>
     </section>
