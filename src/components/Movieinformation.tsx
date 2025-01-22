@@ -1,10 +1,11 @@
-import { url_Image } from "../Urlendpoint/Urlendpoint";
-import { FaList, FaPlay, FaStar, FaTicketAlt } from "react-icons/fa";
+
+import { FaList, FaStar, FaTicketAlt } from "react-icons/fa";
 import { BsDot } from "react-icons/bs";
 import { useParams } from "react-router-dom";
 import { useGetSingleMovieQuery } from "../store/apiSlice";
 import ReccomendedMovies from "./ReccomendedMovies";
 import SimilarMovies from "./SimilarMovies";
+import VideoPlayer from "./VideoPlayer";
 
 const Movieinformation = (
 ) => {
@@ -13,21 +14,11 @@ const Movieinformation = (
        const { data} = useGetSingleMovieQuery(id);
   return (
     <section className="mt-6 lg:mt-4 mx-9 flex-1">
-      <div className="relative w-half flex items-center justify-center">
-        <img
-          src={`${url_Image}/original/${data?.backdrop_path}`}
-          alt={data?.title}
-          className="rounded-2xl w-full h-[12rem] sm:h-[17rem] md:h-[20rem]"
+      <div className="relative w-half flex items-center justify-center h-[17rem] sm:h-[17rem] md:h-[30rem]">
+        <VideoPlayer
         />
-        <button className="absolute flex flex-col items-center gap-2 text-white">
-          <div className="bg-white/20 p-4 rounded-full">
-            <FaPlay className=" opacity-75" size={25} />
-          </div>
-          <span className="text-base sm:text-xl md:text-2xl text-[#E8E8E8]">
-            Watch Trailer
-          </span>
-        </button>
       </div>
+
       <div className="text-lg font-medium text-[#404040] flex items-center justify-between my-3">
         <div className="flex flex-col lg:flex-row lg:items-center gap-1 md:gap-2 text-xl md:text-2xl">
           <h3 data-testid="movie-title">{data?.title}</h3>
@@ -75,7 +66,7 @@ const Movieinformation = (
             </h3>
           </div>
           <h2>Similar movies</h2>
-          <ReccomendedMovies/>
+          <ReccomendedMovies />
         </div>
 
         <div className="flex-1 flex flex-col justify-between lg:justify-normal gap-3 md:text-lg mb-2 md:mb-0 ">

@@ -3,6 +3,7 @@ const my_KEY = "3d762bfec75d79016622728f8d2b2bad";
 import { SingleMovie } from "../pages/Singlemovie";
 import { Recommendedmovie } from "../components/ReccomendedMovies";
 import { Similarmovie } from "../components/SimilarMovies";
+import { MovieVideo } from "../components/VideoPlayer";
 
 export interface Movie {
   poster_path: string;
@@ -43,15 +44,17 @@ export const apiSlice = createApi({
       transformResponse: (response: { results: Similarmovie[] }) =>
         response.results.slice(0, 3),
     }),
-    // `${searchMovieEndpoint}${movieName}&${my_KEY}`
-    // `https://api.themoviedb.org/3/search/movie?query=${movieName}api_key=${my_KEY}`
     getSearchMovies: builder.query<Movie[], string | void>({
-      query: (movieName) => `search/movie?query=${movieName}api_key=${my_KEY}`,
+      query: (movieName) =>
+        `search/movie?include_adult=false&language=en-US&page=1&api_key=${my_KEY}&query=${movieName}`,
       transformResponse: (response: { results: Movie[] }) => response.results,
-      //keepUnusedDataFor: 300, // Cache data for 300 seconds (5 minutes)
-      //refetchOnMountOrArgChange: true, // Refetch data every time the component mounts
+    }),
+    getMovieVideo: builder.query<MovieVideo[], number | void>({
+      query: (movieId) => `movie/${movieId}/videos?api_key=${my_KEY}`,
+      transformResponse: (response: { results: MovieVideo[] }) =>
+        response.results.slice(0, 3),
     }),
   }),
 });
 
-export const { useGetPopularMoviesQuery,useGetSingleMovieQuery,useGetRecommenddedMoviesQuery,useGetSimilarMoviesQuery,useGetSearchMoviesQuery} = apiSlice;
+export const { useGetPopularMoviesQuery,useGetSingleMovieQuery,useGetRecommenddedMoviesQuery,useGetSimilarMoviesQuery,useGetSearchMoviesQuery,useGetMovieVideoQuery} = apiSlice;
