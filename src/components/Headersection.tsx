@@ -27,7 +27,7 @@ const Headersection = () => {
           <Searchnav />
 
           <nav>
-            <Link to="/home" className="flex items-center gap-2 md:gap-4">
+            <Link to="/login" className="flex items-center gap-2 md:gap-4">
               Sign In
               <FaEquals className="bg-rose-700 h-7 md:h-8 w-7 md:w-8 rounded-full p-1 md:p-1.5" />
             </Link>
