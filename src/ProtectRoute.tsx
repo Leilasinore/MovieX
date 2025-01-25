@@ -6,7 +6,7 @@ const ProtectRoute: React.FC = () => {
   const { data: user, isLoading } = useGetCurrentUserQuery();
 
   if (isLoading) {
-      return <div></div>;
+      return <div>loading...</div>;
   }
    
 

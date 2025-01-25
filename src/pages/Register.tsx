@@ -1,12 +1,37 @@
-import  React from "react";
+import  React,{useEffect} from "react";
 import { useNavigate } from "react-router-dom";
+import { useSignupMutation } from "../store/authApi";
+import {toast} from "react-toastify"
 export default function Register() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const navigate = useNavigate()
 
-  const onSignUpHandle = () => {
+  const [signup, { isLoading, error, isSuccess }] = useSignupMutation();
+
+  const onSignUpHandle = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email !== null && password !== null) {
+      await signup({ email, password }).unwrap();
+    }
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("User registered successfully", {
+        toastId: "success1",
+      });
+      navigate("/movie/:movieId");
+    }
+    // eslint-disable-next-line
+  }, [isSuccess]);
+  useEffect(() => {
+    if (error) {
+      //   toast.error(error.id);
+      console.log(error);
+    }
+    // eslint-disable-next-line
+  }, [error]);
 
   return (
     <div className="   align-bottom w-full h-screen shadow-sm bg-cover bg-center bg-[url('../src/assets/movieposters.jpeg')]  ">

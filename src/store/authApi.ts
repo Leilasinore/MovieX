@@ -1,6 +1,7 @@
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
   User,
@@ -15,6 +16,20 @@ export const authApi = createApi({
       queryFn: async ({ email, password }) => {
         try {
           const userCredential = await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+          return { data: userCredential.user };
+        } catch (error: any) {
+          return { error: { message: error.message } };
+        }
+      },
+    }),
+    signup: builder.mutation<User, { email: string; password: string }>({
+      queryFn: async ({ email, password }) => {
+        try {
+          const userCredential = await createUserWithEmailAndPassword(
             auth,
             email,
             password
@@ -48,5 +63,5 @@ export const authApi = createApi({
   }),
 });
 
-export const { useLoginMutation, useLogoutMutation, useGetCurrentUserQuery } =
+export const { useLoginMutation, useLogoutMutation, useGetCurrentUserQuery,useSignupMutation } =
   authApi;
