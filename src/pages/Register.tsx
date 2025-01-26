@@ -1,13 +1,13 @@
 import  React,{useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import { useSignupMutation } from "../store/authApi";
+import { useRegisterUserMutation } from "../store/authApi";
 import {toast} from "react-toastify"
 export default function Register() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const navigate = useNavigate()
 
-  const [signup, { isLoading, error, isSuccess }] = useSignupMutation();
+  const [signup, {error, isSuccess }] = useRegisterUserMutation();
 
   const onSignUpHandle = async (e: React.FormEvent) => {
     e.preventDefault();

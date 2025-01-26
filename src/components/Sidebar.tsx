@@ -8,9 +8,15 @@ import { TbLogout2 } from "react-icons/tb";
 import { TbLogout } from "react-icons/tb";
 import { useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { useLogoutUserMutation } from "../store/authApi";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import {toast} from "react-toastify"
 
 const Sidebar = () => {
   const [openSideBar, setOpenSideBar] = useState(false);
+  const [logout,{isSuccess,error} ] = useLogoutUserMutation();
+  const navigate = useNavigate()
 
   const navigation = [
     {
@@ -40,6 +46,26 @@ const Sidebar = () => {
   const openMenu = () => {
     setOpenSideBar(!openSideBar);
   };
+  const signOutUser = async() =>{
+       await logout();
+       
+  }
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("User logged out successfully", {
+        toastId: "success1",
+      });
+      navigate("/");
+    }
+    // eslint-disable-next-line
+  }, [isSuccess]);
+  useEffect(() => {
+    if (error) {
+      //   toast.error(error.id);
+      console.log(`logout error:${error}`);
+    }
+    // eslint-disable-next-line
+  }, [error]);
 
   return (
     <>
@@ -133,7 +159,7 @@ const Sidebar = () => {
           </button>
         </div>
 
-        <button className="flex items-center gap-2 mx-11 text-gray-600 text-base font-bold">
+        <button className="flex items-center gap-2 mx-11 text-gray-600 text-base font-bold" onClick={signOutUser}>
           <TbLogout size={18} />
           <span>Log Out</span>
         </button>

@@ -60,15 +60,17 @@
 
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useLoginMutation } from "../store/authApi";
+import { useLoginUserMutation } from "../store/authApi";
 import {toast} from "react-toastify"
 import { RingLoader } from "react-spinners";
+import { useDispatch } from "react-redux";
+import { setUser } from "../store/authSlice";
 export default function Login() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const navigate = useNavigate();
-
-  const [login, { isLoading, error,isSuccess }] = useLoginMutation();
+  const dispatch = useDispatch();
+  const [login, { isLoading, error,isSuccess,data }] = useLoginUserMutation();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -79,6 +81,7 @@ export default function Login() {
    
   useEffect(() => {
     if (isSuccess) {
+      dispatch(setUser(data));
       toast.success("User logged in successfully", {
         toastId: "success1",
       });
