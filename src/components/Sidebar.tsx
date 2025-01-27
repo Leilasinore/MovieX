@@ -8,15 +8,19 @@ import { TbLogout2 } from "react-icons/tb";
 import { TbLogout } from "react-icons/tb";
 import { useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { useLogoutUserMutation } from "../store/authApi";
+import { useLogoutMutation } from "../store/authApi";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import {toast} from "react-toastify"
+import { RingLoader } from "react-spinners";
+import { useDispatch } from "react-redux";
+import { setMovieItemId } from "../store/movieItemIdSlice";
 
 const Sidebar = () => {
   const [openSideBar, setOpenSideBar] = useState(false);
-  const [logout,{isSuccess,error} ] = useLogoutUserMutation();
+  const [logout,{isSuccess,error,isLoading} ] = useLogoutMutation();
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const navigation = [
     {
@@ -56,6 +60,7 @@ const Sidebar = () => {
         toastId: "success1",
       });
       navigate("/");
+      dispatch(setMovieItemId(null));
     }
     // eslint-disable-next-line
   }, [isSuccess]);
@@ -109,9 +114,21 @@ const Sidebar = () => {
           </button>
         </div>
 
-        <button className="flex items-center gap-2 mx-11 text-gray-600 text-base font-bold">
-          <TbLogout2 size={18} />
-          <span>Log Out</span>
+        <button
+          className="flex items-center gap-2 mx-11 text-gray-600 text-base font-bold"
+          onClick={signOutUser}
+        >
+          {isLoading ? (
+            <span className="flex items-center gap-2">
+              <RingLoader className="text-rose-700" />
+              Logging out..
+            </span>
+          ) : (
+            <>
+              <TbLogout2 size={18} />
+              <span>Log Out</span>
+            </>
+          )}
         </button>
       </aside>
 
@@ -159,7 +176,10 @@ const Sidebar = () => {
           </button>
         </div>
 
-        <button className="flex items-center gap-2 mx-11 text-gray-600 text-base font-bold" onClick={signOutUser}>
+        <button
+          className="flex items-center gap-2 mx-11 text-gray-600 text-base font-bold"
+          onClick={signOutUser}
+        >
           <TbLogout size={18} />
           <span>Log Out</span>
         </button>

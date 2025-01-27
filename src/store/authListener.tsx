@@ -3,6 +3,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { auth } from "../firebaseConfig";
 import { setUser, clearUser } from "./authSlice";
+import { saveUserToLocalStorage, clearUserFromLocalStorage } from "./authUtils";
 
 const AuthListener: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -13,8 +14,10 @@ const AuthListener: React.FC<{ children: React.ReactNode }> = ({
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         dispatch(setUser(user));
+        saveUserToLocalStorage(user); // Save user to localStorage
       } else {
         dispatch(clearUser());
+        clearUserFromLocalStorage();
       }
     });
 

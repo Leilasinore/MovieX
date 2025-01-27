@@ -1,13 +1,13 @@
 import  React,{useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import { useRegisterUserMutation } from "../store/authApi";
+import { useSignupMutation } from "../store/authApi";
 import {toast} from "react-toastify"
 export default function Register() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const navigate = useNavigate()
 
-  const [signup, {error, isSuccess }] = useRegisterUserMutation();
+  const [signup, {error, isSuccess }] = useSignupMutation();
 
   const onSignUpHandle = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,14 +23,12 @@ export default function Register() {
       });
       navigate("/movie/:movieId");
     }
-    // eslint-disable-next-line
   }, [isSuccess]);
   useEffect(() => {
     if (error) {
-      //   toast.error(error.id);
+         toast.error("an error during registration");
       console.log(error);
     }
-    // eslint-disable-next-line
   }, [error]);
 
   return (

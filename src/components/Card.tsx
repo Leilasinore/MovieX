@@ -4,6 +4,8 @@ import tomato from "../assets/tomato.png";
 import { FaHeart } from "react-icons/fa6";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import {  useDispatch } from "react-redux";
+import { setMovieItemId } from "../store/movieItemIdSlice";
 
 interface myCardProps {
     poster_path: string;
@@ -15,6 +17,7 @@ interface myCardProps {
 
 const Card:React.FC<myCardProps> = ({ poster_path, title, release_date, id, vote_average }) => {
   const [clicked, setClicked] = useState(false);
+  const dispatch = useDispatch();
 
   const handleClicked = () => {
     setClicked(!clicked);
@@ -35,7 +38,11 @@ const Card:React.FC<myCardProps> = ({ poster_path, title, release_date, id, vote
       >
         <FaHeart />
       </button>
-      <Link to={`/movie/${id}`} className="max-h-[28rem] w-[15.625rem]">
+      <Link
+        to={`/movie/${id}`}
+        onClick={() => dispatch(setMovieItemId(id))}
+        className="max-h-[28rem] w-[15.625rem]"
+      >
         <img
           className="h-[21.125rem] rounded-[20px] w-full hover:scale-105 transition-all duration-700 ease-in-out mb-2"
           data-testid="movie-poster"

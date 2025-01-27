@@ -1,76 +1,20 @@
 
-
-// if (email !== null && password !== null) {
-    //   createUserWithEmailAndPassword(auth, email, password)
-    //     .then((user) => {
-    //       setUser(user.user.email);
-    //       setAuthState("home");
-    //     })
-    //     .catch((err) => {
-    //       alert(err);
-    //     });
-    // }
-
-
-// import React, { useState } from "react";
-// import { useLoginMutation } from "../store/authApi";
-// import { useNavigate } from "react-router-dom";
-
-// const Login: React.FC = () => {
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-//   const [login, { isLoading, error }] = useLoginMutation();
-//   const navigate = useNavigate();
-
-//   const handleLogin = async (e: React.FormEvent) => {
-//     e.preventDefault();
-//     try {
-//       await login({ email, password }).unwrap();
-//       navigate("/movie/:movieId");
-//     } catch (err) {
-//       console.error(err);
-//     }
-//   };
-
-//   return (
-//     <form onSubmit={handleLogin}>
-//       <div>
-//         <label>Email:</label>
-//         <input
-//           type="email"
-//           value={email}
-//           onChange={(e) => setEmail(e.target.value)}
-//         />
-//       </div>
-//       <div>
-//         <label>Password:</label>
-//         <input
-//           type="password"
-//           value={password}
-//           onChange={(e) => setPassword(e.target.value)}
-//         />
-//       </div>
-//       <button type="submit" disabled={isLoading}>
-//         Login
-//       </button>
-//     </form>
-//   );
-// };
-//import { auth } from "../fire";
-
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useLoginUserMutation } from "../store/authApi";
+import { useLoginMutation } from "../store/authApi";
 import {toast} from "react-toastify"
 import { RingLoader } from "react-spinners";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { setUser } from "../store/authSlice";
 export default function Login() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [login, { isLoading, error,isSuccess,data }] = useLoginUserMutation();
+  const [login, { isLoading, error,isSuccess,data }] = useLoginMutation();
+   const movieId = useSelector((state: any) => state.movieItemId);
+
+
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -85,16 +29,15 @@ export default function Login() {
       toast.success("User logged in successfully", {
         toastId: "success1",
       });
-      navigate("/movie/:movieId");
+      console.log(movieId)
+      navigate(`/movie/${movieId.movieId}`);
     }
-    // eslint-disable-next-line
+    
   }, [isSuccess]);
   useEffect(() => {
     if (error) {
-    //   toast.error(error.id);
     console.log(error)
     }
-    // eslint-disable-next-line
   }, [error]);
   
   return (
@@ -107,7 +50,7 @@ export default function Login() {
               Get Access to unlimited Movies!
             </h1>
             <p className="font-medium text-lg text-gray-500 mt-4">
-              Create an account to get started
+              Already have an account? Login
             </p>
             <div className="mt-8">
               <div className="flex flex-col">

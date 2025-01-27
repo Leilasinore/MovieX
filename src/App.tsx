@@ -19,9 +19,9 @@ function App() {
           <Route path="/movie/search/:movieName" element={<SearchResults />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          {/* <Route element={<ProtectRoute />}> */}
+          <Route element={<ProtectRoute />}>
             <Route path="/movie/:movieId" element={<Singlemovie />} />
-          {/* </Route> */}
+          </Route>
           <Route path="*" element={<Displayerror />} />
         </Routes>
       </AuthListener>

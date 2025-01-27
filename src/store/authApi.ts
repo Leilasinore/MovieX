@@ -1,49 +1,18 @@
-
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
-  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
   signOut,
   User,
 } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 
-// Helper to serialize the Firebase User
-const serializeUser = (user: User | null) => {
-  if (!user) return null;
-  return {
-    uid: user.uid,
-    email: user.email,
-    displayName: user.displayName,
-  };
-};
-
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fakeBaseQuery(),
   endpoints: (builder) => ({
-    registerUser: builder.mutation<
-      { uid: string; email: string | null; displayName: string | null },
-      { email: string; password: string }
-    >({
-      queryFn: async ({ email, password }) => {
-        try {
-          const userCredential = await createUserWithEmailAndPassword(
-            auth,
-            email,
-            password
-          );
-          const user = serializeUser(userCredential.user);
-          return { data: user };
-        } catch (error: any) {
-          return { error: { message: error.message } };
-        }
-      },
-    }),
-    loginUser: builder.mutation<
-      { uid: string; email: string | null; displayName: string | null },
-      { email: string; password: string }
-    >({
+    login: builder.mutation<User, { email: string; password: string }>({
       queryFn: async ({ email, password }) => {
         try {
           const userCredential = await signInWithEmailAndPassword(
@@ -51,14 +20,27 @@ export const authApi = createApi({
             email,
             password
           );
-          const user = serializeUser(userCredential.user);
-          return { data: user };
+          return { data: userCredential.user };
         } catch (error: any) {
           return { error: { message: error.message } };
         }
       },
     }),
-    logoutUser: builder.mutation<void, void>({
+    signup: builder.mutation<User, { email: string; password: string }>({
+      queryFn: async ({ email, password }) => {
+        try {
+          const userCredential = await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+          return { data: userCredential.user };
+        } catch (error: any) {
+          return { error: { message: error.message } };
+        }
+      },
+    }),
+    logout: builder.mutation<void, void>({
       queryFn: async () => {
         try {
           await signOut(auth);
@@ -68,11 +50,18 @@ export const authApi = createApi({
         }
       },
     }),
+    getCurrentUser: builder.query<User | null, void>({
+      queryFn: () => {
+        return new Promise((resolve) => {
+          const unsubscribe = onAuthStateChanged(auth, (user) => {
+            resolve({ data: user });
+            unsubscribe();
+          });
+        });
+      },
+    }),
   }),
 });
 
-export const {
-  useRegisterUserMutation,
-  useLoginUserMutation,
-  useLogoutUserMutation,
-} = authApi;
+export const { useLoginMutation, useLogoutMutation, useGetCurrentUserQuery,useSignupMutation } =
+  authApi;

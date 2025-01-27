@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { FaEquals, FaPlayCircle } from "react-icons/fa";
+import {  FaPlayCircle } from "react-icons/fa";
 import imdb from "../assets/imdb.png";
 import tomato from "../assets/tomato.png";
 import tv from "../assets/tv.png";
@@ -26,12 +26,12 @@ const Headersection = () => {
 
           <Searchnav />
 
-          <nav>
+          {/* <nav>
             <Link to="/login" className="flex items-center gap-2 md:gap-4">
               Sign In
               <FaEquals className="bg-rose-700 h-7 md:h-8 w-7 md:w-8 rounded-full p-1 md:p-1.5" />
             </Link>
-          </nav>
+          </nav> */}
         </div>
         <div className="absolute bg-opacity-75 flex flex-col items-start justify-center h-screen mt-20 md:mt-0 max-w-sm">
           <h2 className="text-4xl md:text-5xl w-full tracking-wide mb-3 font-bold">
