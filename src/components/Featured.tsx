@@ -8,10 +8,14 @@ interface Movie {
   id: number;
   vote_average: number;
 }
+interface ErrorResponse {
+  message: string;
+  statusCode: number;
+}
 
 interface myFeaturedProps{
     movies:Movie[];
-    errors:any;
+    errors:ErrorResponse | null;
     isLoading:boolean;
 }
 

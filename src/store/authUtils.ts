@@ -1,13 +1,11 @@
- import {  User } from "firebase/auth";
+import { User } from "firebase/auth";
 export const saveUserToLocalStorage = (user: User) => {
-
-   const userToken = JSON.stringify({
-     token:user.refreshToken,
-     email:user.email
-   })
-   localStorage.setItem("user",userToken);
+  const userToken = JSON.stringify({
+    token: user.refreshToken,
+    email: user.email,
+  });
+  localStorage.setItem("user", userToken);
 };
-
 
 export const getUserFromLocalStorage = (): User | null => {
   const user = localStorage.getItem("user");

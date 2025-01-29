@@ -7,7 +7,7 @@ const Searchnav = () => {
   const [value, setValue] = useState("");
   const navigate = useNavigate();
 
-  const handleSearchMovie = (e:any) => {
+  const handleSearchMovie = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     navigate(`/movie/search/${value}`);
     setValue("");
@@ -22,7 +22,9 @@ const Searchnav = () => {
           placeholder="What do you want to watch?"
           name={value}
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setValue(e.target.value)
+          }
         />
         <button className="absolute right-2 text-gray-300" type="submit">
           <FaSearch />

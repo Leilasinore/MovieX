@@ -7,6 +7,7 @@ import { RingLoader } from "react-spinners";
 import { useDispatch,useSelector } from "react-redux";
 import { setUser } from "../store/authSlice";
 import { FirebaseError } from "firebase/app";
+import { RootState } from "../store";
 
 export default function Login() {
   const [email, setEmail] = React.useState("");
@@ -14,8 +15,10 @@ export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [login, { isLoading,isSuccess,data }] = useLoginMutation();
-   const movieId = useSelector((state: any) => state.movieItemId).movieId;
-   const targetMovieId = movieId ?? "1241982";
+   const movieId = useSelector(
+     (state:RootState) => state.movieItemId.movieId
+   )
+   const targetMovieId = movieId ?? 1241982;
 
 
 
@@ -39,7 +42,7 @@ export default function Login() {
    
   useEffect(() => {
     if (isSuccess) {
-      dispatch(setUser(data));
+         dispatch(setUser(data))
       toast.success("User logged in successfully", {
         toastId: "success1",
       });

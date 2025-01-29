@@ -13,8 +13,7 @@ export interface MovieVideo {
   type: string;
 }
 
-const VideoPlayer= ({
-}) => {
+const VideoPlayer= () => {
 
   const { movieId } = useParams<{ movieId: string }>();
   const id = movieId ? parseInt(movieId, 10) : undefined;

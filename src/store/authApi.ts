@@ -6,6 +6,7 @@ import {
   User,
 } from "firebase/auth";
 import { auth } from "../firebaseConfig";
+import { FirebaseError } from "firebase/app";
 
 export const authApi = createApi({
   reducerPath: "authApi",
@@ -20,8 +21,12 @@ export const authApi = createApi({
             password
           );
           return { data: userCredential.user };
-        } catch (error: any) {
-          return { error: { message: error.message } };
+        } catch (error) {
+          if (error instanceof FirebaseError) {
+            return { error: { message: error.message } };
+          } else {
+            return {"Unexpected Error:":error}
+          }
         }
       },
     }),
@@ -34,8 +39,12 @@ export const authApi = createApi({
             password
           );
           return { data: userCredential.user };
-        } catch (error: any) {
-          return { error: { message: error.message } };
+        } catch (error) {
+          if (error instanceof FirebaseError) {
+            return { error: { message: error.message } };
+          } else {
+            return { "Unexpected Error:": error };
+          }
         }
       },
     }),
@@ -44,21 +53,15 @@ export const authApi = createApi({
         try {
           await signOut(auth);
           return { data: undefined };
-        } catch (error: any) {
-          return { error: { message: error.message } };
+        } catch (error) {
+          if (error instanceof FirebaseError) {
+            return { error: { message: error.message } };
+          } else {
+            return { "Unexpected Error:": error };
+          }
         }
       },
     }),
-    // getCurrentUser: builder.query<User | null, void>({
-    //   queryFn: () => {
-    //     return new Promise((resolve) => {
-    //       const unsubscribe = onAuthStateChanged(auth, (user) => {
-    //         resolve({ data: user });
-    //         unsubscribe();
-    //       });
-    //     });
-    //   },
-    // }),
   }),
 });
 

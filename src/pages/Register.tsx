@@ -1,6 +1,7 @@
 import  React,{useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { useSignupMutation } from "../store/authApi";
+import { RootState } from "../store";
 import { RingLoader } from "react-spinners";
 import {toast} from "react-toastify"
 import { useSelector } from "react-redux";
@@ -9,9 +10,9 @@ export default function Register() {
   const [password, setPassword] = React.useState("");
   const navigate = useNavigate()
 
-  const [signup, {error, isSuccess,isLoading }] = useSignupMutation();
-  const movieId = useSelector((state: any) => state.movieItemId).movieId;
-  const targetMovieId = movieId ?? "1241982";
+  const [signup, {error, isSuccess,isLoading}] = useSignupMutation();
+  const movieId = useSelector((state: RootState) => state.movieItemId.movieId);
+  const targetMovieId = movieId ?? 1241982;
 
   const onSignUpHandle = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,7 +26,8 @@ export default function Register() {
       toast.success("User registered successfully", {
         toastId: "success1",
       });
-      navigate(`/movie/${targetMovieId}`);
+       navigate(`/movie/${targetMovieId}`);
+    
     }
   }, [isSuccess]);
   useEffect(() => {

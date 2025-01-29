@@ -20,7 +20,7 @@ import { setMovieItemId } from "../store/movieItemIdSlice";
 
 const Sidebar = () => {
   const [openSideBar, setOpenSideBar] = useState(false);
-  const [logout,{isSuccess,error,isLoading} ] = useLogoutMutation();
+  const [logout,{isSuccess,isLoading} ] = useLogoutMutation();
   const data= getUserFromLocalStorage()
 
 
@@ -69,13 +69,7 @@ const Sidebar = () => {
     }
     // eslint-disable-next-line
   }, [isSuccess]);
-  useEffect(() => {
-    if (error) {
-      //   toast.error(error.id);
-      console.log(`logout error:${error}`);
-    }
-    // eslint-disable-next-line
-  }, [error]);
+  
 
   return (
     <>
