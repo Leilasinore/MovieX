@@ -1,4 +1,5 @@
-export const my_KEY = "3d762bfec75d79016622728f8d2b2bad";
+
+export const my_KEY = import.meta.env.VITE_MOVIEDB_API_KEY;
 
 export const moviesUrl = `https://api.themoviedb.org/3/movie/top_rated?${my_KEY}`;
 

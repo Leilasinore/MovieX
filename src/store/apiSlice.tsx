@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-const my_KEY = "3d762bfec75d79016622728f8d2b2bad";
+import { my_KEY } from "../Urlendpoint/Urlendpoint";
 import { SingleMovie } from "../pages/Singlemovie";
 import { Recommendedmovie } from "../components/ReccomendedMovies";
 import { Similarmovie } from "../components/SimilarMovies";

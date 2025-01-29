@@ -5,10 +5,12 @@ import { BiSolidCameraMovie } from "react-icons/bi";
 import { PiVideo } from "react-icons/pi";
 import { LiaCalendarSolid } from "react-icons/lia";
 import { TbLogout2 } from "react-icons/tb";
+import { VscAccount } from "react-icons/vsc";
 import { TbLogout } from "react-icons/tb";
 import { useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { useLogoutMutation } from "../store/authApi";
+import { useLogoutMutation,} from "../store/authApi";
+import { getUserFromLocalStorage } from "../store/authUtils";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import {toast} from "react-toastify"
@@ -19,6 +21,9 @@ import { setMovieItemId } from "../store/movieItemIdSlice";
 const Sidebar = () => {
   const [openSideBar, setOpenSideBar] = useState(false);
   const [logout,{isSuccess,error,isLoading} ] = useLogoutMutation();
+  const data= getUserFromLocalStorage()
+
+
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -81,7 +86,7 @@ const Sidebar = () => {
             to="/"
           >
             <img src={tv} alt="moviebox" className="h-12" />
-            MovieBox
+            MovieX
           </Link>
         </div>
         <nav className="flex flex-col w-full xl:mb-5">
@@ -130,6 +135,10 @@ const Sidebar = () => {
             </>
           )}
         </button>
+        <span className="flex items-center gap-2 mx-11 mt-10 text-gray-600 text-base font-bold">
+          <VscAccount size={18} />
+          <span>{data?.email}</span>
+        </span>
       </aside>
 
       <aside
@@ -143,7 +152,7 @@ const Sidebar = () => {
             to="/"
           >
             <img src={tv} alt="logo" className="h-10" />
-            MovieBox
+            MovieX
           </Link>
         </div>
         <nav className="flex flex-col w-full mb-5">
@@ -180,9 +189,22 @@ const Sidebar = () => {
           className="flex items-center gap-2 mx-11 text-gray-600 text-base font-bold"
           onClick={signOutUser}
         >
-          <TbLogout size={18} />
-          <span>Log Out</span>
+          {isLoading ? (
+            <span className="flex items-center gap-2">
+              <RingLoader className="text-rose-700" />
+              Logging out..
+            </span>
+          ) : (
+            <>
+              <TbLogout size={18} />
+              <span>Log Out</span>
+            </>
+          )}
         </button>
+        <span className="flex items-center gap-2 mx-11 mt-10 text-gray-600 text-base font-bold">
+          <VscAccount size={18} />
+          <span>{data?.email}</span>
+        </span>
       </aside>
       <button
         onClick={openMenu}

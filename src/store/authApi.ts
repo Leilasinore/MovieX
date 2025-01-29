@@ -2,7 +2,6 @@ import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
   signOut,
   User,
 } from "firebase/auth";
@@ -50,18 +49,18 @@ export const authApi = createApi({
         }
       },
     }),
-    getCurrentUser: builder.query<User | null, void>({
-      queryFn: () => {
-        return new Promise((resolve) => {
-          const unsubscribe = onAuthStateChanged(auth, (user) => {
-            resolve({ data: user });
-            unsubscribe();
-          });
-        });
-      },
-    }),
+    // getCurrentUser: builder.query<User | null, void>({
+    //   queryFn: () => {
+    //     return new Promise((resolve) => {
+    //       const unsubscribe = onAuthStateChanged(auth, (user) => {
+    //         resolve({ data: user });
+    //         unsubscribe();
+    //       });
+    //     });
+    //   },
+    // }),
   }),
 });
 
-export const { useLoginMutation, useLogoutMutation, useGetCurrentUserQuery,useSignupMutation } =
+export const { useLoginMutation, useLogoutMutation,useSignupMutation } =
   authApi;

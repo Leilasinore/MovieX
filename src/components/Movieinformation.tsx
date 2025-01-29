@@ -15,8 +15,7 @@ const Movieinformation = (
   return (
     <section className="mt-6 lg:mt-4 mx-9 flex-1">
       <div className="relative w-half flex items-center justify-center h-[17rem] sm:h-[17rem] md:h-[30rem]">
-        <VideoPlayer
-        />
+        <VideoPlayer />
       </div>
 
       <div className="text-lg font-medium text-[#404040] flex items-center justify-between my-3">
@@ -65,7 +64,7 @@ const Movieinformation = (
               <span className="text-rose-700">John Doe, Jane Doe, Foo Bar</span>
             </h3>
           </div>
-          <h2>Similar movies</h2>
+          <h2 className=" text-[#333] font-bold">Similar movies</h2>
           <ReccomendedMovies />
         </div>
 
@@ -77,7 +76,7 @@ const Movieinformation = (
             </button>
             <button className="bg-rose-100 px-5 py-3 rounded-lg text-[#333] border border-rose-700 flex items-center gap-2 sm:gap-3 text-sm sm:text-base leading-4 font-bold">
               <FaList />
-              More watch options
+              More Recommended watch options
             </button>
           </div>
           <SimilarMovies />

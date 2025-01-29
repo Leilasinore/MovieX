@@ -27,7 +27,7 @@ const Footersection = () => {
       </div>
 
       <div className="text-gray-500 text-sm sm:text-base">
-        <p>&copy; 2023 MovieBox by Leila Sinore</p>
+        <p>&copy; 2025 MovieX by Leila Sinore</p>
       </div>
     </footer>
   );

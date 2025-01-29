@@ -1,0 +1,50 @@
+name: MovieX Pipeline
+
+# Trigger the workflow on pushes to main or pull requests
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+# Define the jobs
+jobs:
+  lint-test-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Step 4: Run ESLint for linting
+      - name: Run Linting
+        run: npm run lint
+
+      # Step 5: Run tests with Jest
+    #   - name: Run Tests
+    #     run: npm test
+
+      # Step 6: Build the project
+    #   - name: Build Project
+    #     run: npm run build
+
+      # Step 7: Deploy to Netlify
+    #   - name: Deploy to Netlify
+    #     uses: nwtgck/actions-netlify@v2.0.0
+    #     with:
+    #       publish-dir: ./build
+    #       production-deploy: true
+    #     env:
+    #       NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+    #       NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

@@ -6,20 +6,34 @@ import {toast} from "react-toastify"
 import { RingLoader } from "react-spinners";
 import { useDispatch,useSelector } from "react-redux";
 import { setUser } from "../store/authSlice";
+import { FirebaseError } from "firebase/app";
+
 export default function Login() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [login, { isLoading, error,isSuccess,data }] = useLoginMutation();
-   const movieId = useSelector((state: any) => state.movieItemId);
+  const [login, { isLoading,isSuccess,data }] = useLoginMutation();
+   const movieId = useSelector((state: any) => state.movieItemId).movieId;
+   const targetMovieId = movieId ?? "1241982";
 
 
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email !== null && password !== null) {
-        await login({ email, password }).unwrap();
+        try {
+           await login({ email, password }).unwrap();
+        } catch (error) {
+          if (error instanceof FirebaseError) {
+            toast.error(error.message, {
+               toastId: "error1",
+           });
+          } else {
+            toast.error("An unknown error occured")
+            console.error("An unknown error Occurred:", error);
+          }
+        }
     }
   };
    
@@ -29,16 +43,10 @@ export default function Login() {
       toast.success("User logged in successfully", {
         toastId: "success1",
       });
-      console.log(movieId)
-      navigate(`/movie/${movieId.movieId}`);
-    }
-    
+      navigate(`/movie/${targetMovieId}`);
+    }   
   }, [isSuccess]);
-  useEffect(() => {
-    if (error) {
-    console.log(error)
-    }
-  }, [error]);
+
   
   return (
     <div className="   align-bottom w-full h-screen shadow-sm bg-cover bg-center bg-[url('../src/assets/movieposters.jpeg')]  ">

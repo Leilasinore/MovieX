@@ -28,7 +28,7 @@ const SimilarMovies = () => {
       ) : (
         data?.map((item) => {
           return (
-            <Link to={`/movie/${item.id}`}>
+            <Link to={`/movie/${item.id}`} key={item.id}>
               <img
                 className="w-[120px] rounded-[20px] h-[200px] md:w-[173px] md:h-[271px] hover:scale-105 transition-all duration-700 ease-in-out mb-2"
                 data-testid="movie-poster"
