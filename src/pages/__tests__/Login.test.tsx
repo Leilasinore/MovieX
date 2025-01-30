@@ -4,7 +4,7 @@ import Login from "../Login";
 import "@testing-library/jest-dom";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-import authReducer, { setUser } from "../../store/authSlice";
+import authReducer from "../../store/authSlice";
 import { useLoginMutation } from "../../store/authApi";
 import { toast } from "react-toastify";
 import { MemoryRouter, useNavigate } from "react-router-dom";
