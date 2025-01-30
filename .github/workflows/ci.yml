@@ -40,12 +40,13 @@ jobs:
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v2
         with:
-          publish-dir: "./dist"  # Change to your build directory if different
-          production-branch: main
-          deploy-message: "Deployed from GitHub Actions"
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
+          publish-dir: './dist'  # Change this if your build output is in a different directory (e.g., 'build' for Create React App)
+          github-token: ${{ secrets.GITHUB_TOKEN }}  # Default GitHub token for commit status updates
+          production-branch: main  # The branch that triggers deployment
+          production-deploy: true  # Ensure this is true to deploy to production
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}  # Set this in GitHub Secrets
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}  # Set this in GitHub Secrets
 
       # Step 6: Build the project
     #   - name: Build Project
