@@ -32,12 +32,11 @@ jobs:
         run: npm run lint
 
       # Step 5: Run tests with Jest
-    #   - name: Run Tests
-    #     run: npm test
+      - name: Run Tests
+        run: npm test
 
       # Step 6: Build the project
     #   - name: Build Project
     #     run: npm run build
 
-      # Step 7: Deploy to Netlify
-   
+    # Step 7: Deploy to Netlify

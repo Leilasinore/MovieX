@@ -1,38 +1,16 @@
-//import { useEffect, useState } from "react";
+
 import { Link, useParams } from "react-router-dom";
-//import { my_KEY, searchMovieEndpoint } from "../Urlendpoint/Urlendpoint";
 import { RingLoader } from "react-spinners";
 import Card from "../components/Card";
 import Searchnav from "../components/Searchnav";
-//import { FaArrowLeft } from "react-icons/fa";
 import { FaListUl } from "react-icons/fa";
 import { useGetSearchMoviesQuery } from "../store/apiSlice";
 
 const SearchResults = () => {
-//   const [movie, setMovie] = useState([]);
-//   const [isLoading, setIsLoading] = useState(false);
-//   const [errors, setErrors] = useState([]);
   
   const { movieName } = useParams();
   const {data,isLoading} = useGetSearchMoviesQuery(movieName)
   
-
-//   const searchMovie = async () => {
-//     try {
-//       setIsLoading(true);
-//       const res = await fetch(`${searchMovieEndpoint}${movieName}&${my_KEY}`);
-//       const data = await res.json();
-//       setMovie(data.results);
-//     } catch (error) {
-//       setErrors(error);
-//     } finally {
-//       setIsLoading(false);
-//     }
-//   };
-
-//   useEffect(() => {
-//     searchMovie();
-//   }, [movieName]);
 
   return (
     <>

@@ -25,7 +25,7 @@ const Featured:React.FC<myFeaturedProps> = ({movies,isLoading,errors}) => {
   return (
     <main className="px-10 md:px-20 mb-36">
       <div className="flex flex-col gap-2 md:flex-row md:justify-between mb-11 items-start md:items-center">
-        <h1 className="font-bold text-3xl">Featured Movie</h1>
+        <h1 className="font-bold text-3xl">Featured Movies</h1>
         <button className="text-rose-700 font-semibold">
           See more <span>&gt;</span>
         </button>

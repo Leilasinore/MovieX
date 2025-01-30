@@ -65,7 +65,9 @@ export default function Login() {
             </p>
             <div className="mt-8">
               <div className="flex flex-col">
-                <label className="text-lg font-medium">Email</label>
+                <label className="text-lg font-medium" htmlFor="email">
+                  Email
+                </label>
                 <input
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -74,7 +76,9 @@ export default function Login() {
                 />
               </div>
               <div className="flex flex-col mt-4">
-                <label className="text-lg font-medium">Password</label>
+                <label htmlFor="password" className="text-lg font-medium">
+                  Password
+                </label>
                 <input
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}

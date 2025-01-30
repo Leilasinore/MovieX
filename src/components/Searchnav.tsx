@@ -14,7 +14,11 @@ const Searchnav = () => {
   };
   return (
     <div className="w-full md:w-2/4 border-2 border-gray-300 rounded-lg p-2 relative">
-      <form onSubmit={handleSearchMovie} className="w-full flex items-center">
+      <form
+        onSubmit={handleSearchMovie}
+        className="w-full flex items-center"
+        data-testid="search-form"
+      >
         <input
           className="bg-transparent placeholder:text-gray-300 outline-none border-none focus:border-none w-full focus:text-gray-300 font-medium"
           type="text"
